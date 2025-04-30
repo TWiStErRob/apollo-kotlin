@@ -79,6 +79,35 @@ private fun CheckKeyFieldsScope.checkFieldSet(path: String, selections: List<GQL
   }
 }
 
+
+//@Suppress("UNUSED_PARAMETER", "UnusedReceiverParameter")
+//private fun CheckKeyFieldsScope.checkFieldSet(path: String, selections: List<GQLSelection>, parentType: String, possibleType: String) {
+//  val implementedTypes = implementedTypes(possibleType)
+//
+//  val mergedFields = collectFields(selections, parentType, implementedTypes).groupBy {
+//    it.field.name
+//  }.values
+//
+//  if (implementedTypes.contains(parentType)) {
+//    // only check types that are actually possible
+//    val fieldNames = mergedFields.map { it.first().field }
+//        .filter { it.alias == null }
+//        .map { it.name }.toSet()
+//    val keyFieldNames = keyFields(possibleType)
+//
+//    val missingFieldNames = keyFieldNames.subtract(fieldNames)
+//    check(missingFieldNames.isEmpty()) {
+//      "Key Field(s) '$missingFieldNames' are not queried on $possibleType at $path"
+//    }
+//  }
+//
+//  mergedFields.forEach {
+//    val first = it.first()
+//    val rawTypeName = first.field.definitionFromScope(schema, first.parentType)!!.type.rawType().name
+//    checkField(path + "." + first.field.name, it.flatMap { it.field.selections }, rawTypeName)
+//  }
+//}
+
 private class FieldWithParent(val field: GQLField, val parentType: String)
 
 private fun CheckKeyFieldsScope.collectFields(
